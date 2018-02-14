@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
-
 import $  from 'jquery';
-import axios from 'axios';
-import {FormularioAutor, TabelaAutores} from './Autor';
+import AutorBox from './Autor';
 
 class App extends Component {
+  
+  componentDidMount() {
 
-  constructor() {
-    super();
-    this.state = {lista : []};
-  }
-
-  componentDidMount() {    
     $.ajax({
       url: "http://localhost:8080/api/autores",
       dataType: "json",
@@ -21,6 +15,7 @@ class App extends Component {
         this.setState({ lista:resposta });
       }.bind(this)
     });
+
   }
   
   render() {
@@ -44,15 +39,10 @@ class App extends Component {
 
     <div id="main">
         <div className="header">
-          <h1> -  -  - </h1>
+          <h1> Cadastro de Autor </h1>
         </div>
-
         <div className="content" id="content">
-
-          
-
-          <FormularioAutor />
-          <TabelaAutores />          
+          <AutorBox />        
         </div>
 
       </div>            
