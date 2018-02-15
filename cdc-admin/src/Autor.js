@@ -17,7 +17,7 @@ export class FormularioAutor extends Component {
         this.setNome = this.setNome.bind(this);
         this.setEmail = this.setEmail.bind(this);
         this.setSenha = this.setSenha.bind(this);
-
+        
     }
 
     render() {                     
@@ -138,8 +138,13 @@ export default class AutorBox extends Component {
 
     return (
       <div>
-        <FormularioAutor />
-        <TabelaAutores lista={ this.state.lista } />
+        <div className="header">
+          <h1>Cadastro de autores</h1>
+        </div>
+        <div className="content" id="content">                            
+          <FormularioAutor/>
+          <TabelaAutores lista={this.state.lista}/>        
+        </div>
       </div>
     );
 
