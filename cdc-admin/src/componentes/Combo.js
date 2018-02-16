@@ -10,10 +10,10 @@ export default class Combo extends Component {
                 <select id={this.props.id} name={this.props.name} onChange={this.props.onChange}>
                     <option value="">{this.props.selecione}</option>
                     {
-                        this.props.lista.map
+                        this.props.data.map
                         (                            
-                            item => <option value={ item + '.' + this.props.propValue }> { item + '.' + this.props.propLabel } </option>
-                        )
+                            item => <option key={item.id} value={ item.id }> { item.nome } </option>
+                        )                        
                     }
                 </select>
             </div>

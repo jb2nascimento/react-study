@@ -17,15 +17,15 @@ export class FormularioLivro extends Component {
         this.setPreco = this.setPreco.bind(this);
         this.setAutorId = this.setAutorId.bind(this);
       }
-  
-      render() {                     
+
+      render() {                   
           return(
               <div className="pure-form pure-form-aligned">
                   <form className="pure-form pure-form-aligned" onSubmit={this.enviaForm} method="post">                
-                      <Input id="titulo" type="text" name="titulo" value={this.state.titulo} onChange={this.setTitulo} label="Titulo" />
-                      <Input id="preco" type="text" name="preco" value={this.state.preco} onChange={this.setPreco}  label="E-mail" />
-                      <Combo id="autores" label="Autor" selecione="Selecione o Autor" onChange={this.setAutorId} lista={this.state.lista} propValue="id" propLabel="titulo" />
-                      <Botao type="submit" className="pure-button pure-button-primary" label="Gravar" />
+                    <Input id="titulo" type="text" name="titulo" value={this.state.titulo} onChange={this.setTitulo} label="Titulo" />
+                    <Input id="preco" type="text" name="preco" value={this.state.preco} onChange={this.setPreco}  label="Preço" />                     
+                    <Combo id="autores" label="Autor" selecione="Selecione o Autor" onChange={this.setAutorId} data={this.props.autores} propValue="id" propLabel="nome" />
+                    <Botao type="submit" className="pure-button pure-button-primary" label="Gravar" />
                   </form>
               </div>
           );
@@ -91,7 +91,7 @@ class TabelaLivros extends Component {
               </thead>
               <tbody>
                 {
-                  this.props.lista.map
+                  this.props.livros.map
                   (
                     livro =>
                     <tr key={livro.id} >
@@ -114,10 +114,11 @@ export default class LivroBox extends Component {
 
     constructor() {
         super();
-        this.state = { lista: [] }
+        this.state = { lista: [], autores: [] }
     }
-
-    componentDidMount() {        
+    
+    componentDidMount() {
+        
         $.ajax({
             url: 'http://localhost:8080/api/livros',
             dataType: 'json',
@@ -126,9 +127,19 @@ export default class LivroBox extends Component {
             }.bind(this)
         });
 
+        $.ajax({
+            url:"http://localhost:8080/api/autores",
+            dataType: 'json',
+            success: function(resposta) {
+              this.setState( {autores : resposta} );
+            }.bind(this)
+          }
+        );
+
         PubSub.subscribe('atualiza-lista-livros', function(topico, novaListagem) {
             this.setState( { lista: novaListagem });
         }.bind(this));
+
     }
     
     render() {                
@@ -138,8 +149,8 @@ export default class LivroBox extends Component {
                 <h1>Cadastro de Livros</h1>
                 </div>
                 <div className="content" id="content">
-                    <FormularioLivro itens={ this.state.lista } />
-                    <TabelaLivros lista={ this.state.lista }/>
+                    <FormularioLivro autores={ this.state.autores } />
+                    <TabelaLivros livros={this.state.lista} />
                 </div>
             </div>
         );

@@ -5,7 +5,7 @@ export default class Input extends Component {
 
     constructor(){
         super();
-          this.state = {msgErro:''};
+        this.state = {msgErro:''};
     }
 
     render() {
