@@ -8,7 +8,7 @@ import TratadorErros from './TratadorErros';
 
 export class FormularioAutor extends Component {
 
-    constructor() {
+  constructor() {
 
         super();    
         this.state = { lista : [],nome:'',email:'',senha:'' };
@@ -17,7 +17,7 @@ export class FormularioAutor extends Component {
         this.setNome = this.setNome.bind(this);
         this.setEmail = this.setEmail.bind(this);
         this.setSenha = this.setSenha.bind(this);
-        
+
     }
 
     render() {                     
@@ -84,7 +84,7 @@ class TabelaAutores extends Component {
           <div>            
               <table className="pure-table">
                 <thead>
-                  <tr>
+                  <tr>                    
                     <th>Nome</th>
                     <th>email</th>
                   </tr>
@@ -102,12 +102,9 @@ class TabelaAutores extends Component {
                   }
                 </tbody>
               </table> 
-          </div>  
-
+          </div>                    
         );
-
-    }
-    
+    }    
 }
 
 export default class AutorBox extends Component {
